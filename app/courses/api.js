@@ -10,7 +10,6 @@ export const getAllCourses = async () => {
     return response.json()
 }
 
-
 // Get course with :id
 // /api/courses/:id
 export const getCourse = async (id) => {
@@ -22,18 +21,22 @@ export const getCourse = async (id) => {
 }
 
 // POST: Add new course
-// /api/courses : check this before submission
+// /api/courses
 export const addCourse = async (data) => {
-    const course = await fetch(baseURI,
-        'POST',
-        {
+    const response = await fetch(baseURI, {
+        method: "POST",
+        body: {
             id: data.id,
             title: data.title,
             description: data.description,
             image: data.image
         }
+    }
     )
-    return course.json();
+    if (!response.ok) {
+        throw new Error("Failed to add new course")
+    }
+    return response.json()
 }
 
 
